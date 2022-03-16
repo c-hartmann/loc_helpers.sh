@@ -16,5 +16,5 @@ whereas:
 * `<query>` is a term to search
 * `<template>` is a printf format string (Default is: '%s %s\n')
 
-use 'Name[%s]=%s\n' for creating Desktop Entry Specification localized names.
+use `Name[%s]=%s\n` as a template to create Desktop Entry Specification localized Names.
 
