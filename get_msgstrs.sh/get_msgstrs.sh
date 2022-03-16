@@ -12,7 +12,7 @@ test $# -ge 2 || _echo_exit "usage: $0 <appid> <query> [<template>]"
 
 appid=$1
 query=$2
-tmplt=${3:-'Name[%s]=%s\n'}
+tmplt=${3:-'%s %s\n'}
 
 # tranlations are in:
 locale_base_dir='/usr/share/locale'
