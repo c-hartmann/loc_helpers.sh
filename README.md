@@ -14,5 +14,7 @@ whereas:
 
 * `<appid>` usualy is the name of an application (such as KDEs 'dolphin')
 * `<query>` is a term to search
-* `<template>` is printf format string. like 'Name[%s]=%s\n' for creating Desktop Entry Specification localized names
+* `<template>` is a printf format string (Default is: '%s %s\n')
+
+use 'Name[%s]=%s\n' for creating Desktop Entry Specification localized names.
 
