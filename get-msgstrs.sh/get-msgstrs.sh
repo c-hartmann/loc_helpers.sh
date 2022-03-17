@@ -4,7 +4,7 @@
 
 _echo_exit ()
 {
-	printf '%s' "$*" >&2
+	printf '%s\n' "$*" >&2
 	exit 1
 }
 
