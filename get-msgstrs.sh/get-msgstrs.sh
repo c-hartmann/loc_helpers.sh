@@ -39,7 +39,7 @@ _main ()
 
 		mo="$locale_base_dir/$loc/LC_MESSAGES/${appid}.mo"
 		if [[ -r "${mo}" ]]; then
-			msgstr_line=$(msgunfmt "${mo}" | grep -A1 "${query}" | tail -1)
+			msgstr_line=$(msgunfmt "${mo}" | grep -A1 "\"${query}\"" | tail -1)
 			msgstr="${msgstr_line#"msgstr "}"
 			msgstr="${msgstr//\"}"
 			printf "${tmplt}" "${loc}" "${msgstr}"
