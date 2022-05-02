@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
-# get_strings.sh
-# get translations for a string of <id>
+
+# get-msgstrs.sh
+
+# get and print templated translations for a specific string inside <appid>
 
 _echo_exit ()
 {
@@ -10,12 +12,14 @@ _echo_exit ()
 
 test $# -ge 2 || _echo_exit "usage: $0 <appid> <query> [<template>]"
 
-appid=$1
-query=$2
-tmplt=${3:-'%s %s\n'}
+default_print_tmplt='%s %s\n'
+
+appid="$1"
+query="$2"
+tmplt="${3:-$default_print_tmplt}"
 
 # tranlations are in:
-locale_base_dir='/usr/share/locale'
+locale_base_dir="/usr/share/locale"
 
 # get a list of all locales therein
 _all_locales ()
@@ -24,27 +28,37 @@ _all_locales ()
 	echo *
 }
 
-# store all locales inside a simple indexed array
-declare all_locales=( $(_all_locales) )
-
-# this is what an (decompiled) german entry as for dolphin Reload looks like
-#
-# msgid "Reload"
-# msgstr "Aktualisieren"
-#
-
 _main ()
 {
-	for loc in ${all_locales[*]}; do
+#	# store all locales inside a simple indexed array
+#	declare all_locales=( $(_all_locales) )
+#	for locale in ${all_locales[*]}; do
 
-		mo="$locale_base_dir/$loc/LC_MESSAGES/${appid}.mo"
+	# or direct and without an array
+	for locale in $(_all_locales); do
+
+		mo="$locale_base_dir/$locale/LC_MESSAGES/${appid}.mo"
 		if [[ -r "${mo}" ]]; then
+		
+			# this is what an (decompiled) german entry of e.g. 
+			# dolphin Reload looks like and to grab strings from:
+			
+			# msgid "Reload"
+			# msgstr "Aktualisieren"
+			
+			# get the line below the matching query
 			msgstr_line=$(msgunfmt "${mo}" | grep -A1 "\"${query}\"" | tail -1)
+			
+			# trim by "msgstr" from left
 			msgstr="${msgstr_line#"msgstr "}"
+			
+			# trim '"' left and right
 			msgstr="${msgstr//\"}"
-			printf "${tmplt}" "${loc}" "${msgstr}"
+			
+			# format output nicely
+			printf "${tmplt}" "${locale}" "${msgstr}"
 		else
-			: # ignore that silent. just too many of these
+			: # ignore that silently. there are just too many of these
 		fi
 
 	done

@@ -1,13 +1,13 @@
 # Localization Helper Bash Scripts
 
-## get_msgstrs.sh
+## get-msgstrs.sh
 
 Extracts msgtxts from compiled localy installed .mo files.
 
 Usage:
 
 ```
-$ bash get_msgstrs.sh <appid> <query> [<template>]
+$ bash get-msgstrs.sh <appid> <query> [<template>]
 ```
 
 whereas:
